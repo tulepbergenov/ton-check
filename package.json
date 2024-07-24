@@ -12,6 +12,7 @@
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
     "buffer": "^6.0.3",
+    "chalk": "^4.1.2",
     "dotenv": "^16.4.5",
     "ton": "^13.9.0",
     "ton-core": "^0.53.0",

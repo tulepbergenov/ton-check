@@ -1,8 +1,9 @@
 import { getHttpEndpoint } from "@orbs-network/ton-access";
-import { TonClient, WalletContractV4 } from "ton";
+import { fromNano, TonClient, WalletContractV4 } from "ton";
 import { mnemonicToWalletKey } from "ton-crypto";
 import { resolve } from "path";
 import dotenv from "dotenv";
+import chalk from "chalk";
 
 dotenv.config({ path: resolve(__dirname, ".env.local") });
 
@@ -32,10 +33,15 @@ const main = async () => {
     });
 
     if (!(await client.isContractDeployed(wallet.address))) {
-      console.log("Wallet is not deployed");
-    } else {
-      console.log("Wallet is deployed");
+      console.log(chalk.red("Wallet is not deployed"));
+      return;
     }
+
+    console.log(chalk.green("Wallet is deployed"), wallet.address);
+
+    const balance = await client.getBalance(wallet.address);
+
+    console.log(chalk.blue("Wallet"), fromNano(balance));
   } catch (error) {
     console.error(error);
   }
